@@ -1,6 +1,6 @@
 import click
-from utils import LANGUAGE_IMAGES, EDITORS
-from container import ContainerManager
+from .utils import LANGUAGE_IMAGES, EDITORS
+from .container import ContainerManager
 
 @click.command()
 @click.option('--language', required=True, type=click.Choice(LANGUAGE_IMAGES.keys()), help='Programming language (e.g., python, node, java)')
