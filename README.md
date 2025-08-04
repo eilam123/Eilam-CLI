@@ -5,13 +5,18 @@ A CLI tool to launch a Docker container for a chosen programming language and ve
 ## Project Structure
 
 ```
-Eilam-CLI
-├── __main__.py         # Entry point
-├── cli.py              # Argument parsing and command routing
-├── container.py        # Logic for running containers
-├── utils.py            # Helper functions/constants
-├── requirements.txt    # Python dependencies
-├── README.md           # This file
+eilam_cli_package/
+├── main.py            # Entry point: runs the CLI when you do `python -m eilam_cli_package`
+├── cli.py             # Argument parsing and user interaction (Click)
+├── docker_ops.py      # All Docker-related functions: building, running, cleaning up containers/images
+├── dockerfile_gen.py  # Functions to generate Dockerfiles dynamically based on language/editor
+├── config.py          # Central location for config, constants, and validation logic
+├── utils.py           # Helper utilities (logging, hashing for image tags, etc.)
+├── requirements.txt   # Python dependencies (docker, click, etc.)
+├── README.md          # Project overview, usage, and setup instructions
+├── tests/
+│   ├── __init__.py
+│   └── test_dockerfile_gen.py   # Unit tests (Dockerfile generation logic)
 ```
 
 ## Installation
@@ -19,7 +24,7 @@ Eilam-CLI
 1. Install Python 3.7+
 2. Install Docker
 3. Install dependencies:
-   ```
+   ```sh
    pip install -r requirements.txt
    ```
 
@@ -27,22 +32,19 @@ Eilam-CLI
 
 Run the CLI with:
 
-```
-python -m Eilam-CLI --language python --version 3.10 --path /your/code/path --editor vim
+```sh
+python -m eilam_cli_package --language python --version 3.10 --path /your/code/path --editor vim
 ```
 
-- `--language`: Programming language (python, node, java, ...)
-- `--version`: Version of the language (e.g., 3.10, 18, 17)
+- `--language`: Programming language (e.g., python)
+- `--version`: Version of the language (e.g., 3.10)
 - `--path`: Local path to mount into the container
 - `--editor`: Editor to use inside the container (vim, nano)
 
-## Example
+## Testing
 
-```
-python -m Eilam-CLI --language python --version 3.10 --path C:\Users\Eilam\mycode --editor vim
-```
+To run unit tests:
 
-## Notes
-- Make sure Docker is running.
-- The mounted path must exist on your system.
-- You can extend supported languages and editors in `utils.py`.
+```sh
+python -m unittest discover -s eilam_cli_package/tests
+```
